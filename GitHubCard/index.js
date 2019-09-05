@@ -12,6 +12,9 @@ axios.get('https://api.github.com/users/uziasr')
   cards.appendChild(cardCreator(my_info))
   followers_link = response.data.followers_url
 })
+.catch(error=>{
+  console.log(error)
+})
 
 
 
@@ -40,37 +43,15 @@ const followersArray = ["ColinJR95","seanaleid","umekow","michaelharms6010","Gav
 followersArray.forEach(element =>{
   axios.get(`https://api.github.com/users/${element}`)
   .then(res=>{
-    cards.appendChild(cardCreator(res.data))
+    cards.appendChild(cardCreator(res.data))//calling function! 
+  })
+  .catch(error=>{
+    console.log(error)
   })
 })
-// axios.get("https://api.github.com/users/uziasr/followers")
-// .then(response=>{
-  
-//   //cards.appendChild(cardCreator(my_info))
-//   // console.log(response.data)
-//   // const followers_link = (response.data.followers_url)
-//   // axios.get(followers_link)
-//   response.data.forEach(element=> {
-//     axios.get(element['html_url'])
-//     .then(res=>{
-//       cards.appendChild(cardCreator(res.data))
-//     }
-//     )
-//   })
-  
-//   //followersArray.push()
-// })
+
 console.log(followersArray)
 
-// followersArray.forEach(element=>
-// {console.log(element)
-// axios.get(element)
-// .then(response=>{
-//   Cconsole.log(response)
-//   cards.appendChild(cardCreator(response.data))
-// })})
-console.log(followersArray[0])
-//gra
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -130,18 +111,19 @@ function cardCreator(object){
   userAvatar.src = object.avatar_url
   name.textContent = object.name
   userName.textContent = object.login
-  if(object.location){
-    userLocation.textContent = (`Location: ${object.location}`)
-  }
+  // if(object.location){
+  //   userLocation.textContent = (`Location: ${object.location}`)
+  // }
+  userLocation.textContent = (`Location: ${object.location}`)
   profile.textContent = 'Profile: '
   gitLink.href = object.html_url
   gitLink.textContent = object.html_url
   followers.textContent = (`Followers: ${object.followers}`)
   following.textContent = (`Following: ${object.following}`)
-  if(bio.textContent){
+  if(bio.textContent!==null){
   bio.textContent = (`Bio: ${object.bio}`)
 }
-
+  // bio.textContent = (`Bio: ${object.bio}`)
 
 
 
