@@ -2,6 +2,12 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/uziasr')
+.then(response=>{
+  console.log(response)
+})
+
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -53,3 +59,43 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+function cardCreator(data){
+  const card = document.createElement('div')
+  //children
+  const userAvatar = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  //grandchildren
+  const name = document.createElement('h3')
+  const userName = document.createElement('p')
+  const userLocation = document.createElement('p')
+  const profile = document.createElement('p')
+  //great-grandchild of profile
+  const gitLink = document.createElement('a')
+  //grandchildren
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+
+  //adding classes
+  card.classList.add('card')
+  cardInfo.classList.add('card-info')
+  name.classList.add('name')
+  userName.classList.add('username')
+
+  
+  //appending children
+  profile.appendChild(gitLink)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(userName)
+  cardInfo.appendChild(userLocation)
+  cardInfo.appendChild(profile)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+  card.appendChild(userAvatar)
+  card.appendChild(cardInfo)
+
+  return card
+
+}
