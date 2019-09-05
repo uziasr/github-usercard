@@ -2,11 +2,17 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const cards = document.querySelector('.cards')
 axios.get('https://api.github.com/users/uziasr')
+//axios.get("https://api.github.com/users/uziasr/followers")
 .then(response=>{
-  console.log(response)
+  const my_info = response.data
+  cards.appendChild(cardCreator(my_info))
+  console.log(response.data)
+  const followers_link = (response.data.followers_url)
 })
-
+//grab the info!!
+//uziasr-->followers-->html_url --> all info
 
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -60,7 +66,10 @@ const followersArray = [];
   bigknell
 */
 
-function cardCreator(data){
+
+
+
+function cardCreator(object){
   const card = document.createElement('div')
   //children
   const userAvatar = document.createElement('img')
@@ -83,8 +92,25 @@ function cardCreator(data){
   name.classList.add('name')
   userName.classList.add('username')
 
+  //filling content
+  userAvatar.src = object.avatar_url
+  name.textContent = object.name
+  userName.textContent = object.login
+  if(object.location){
+    userLocation.textContent = (`Location: ${object.location}`)
+  }
+  profile.textContent = 'Profile: '
+  gitLink.href = object.html_url
+  gitLink.textContent = object.html_url
+  followers.textContent = (`Followers: ${object.followers}`)
+  following.textContent = (`Following: ${object.following}`)
+
+
+
+
   
   //appending children
+  
   profile.appendChild(gitLink)
   cardInfo.appendChild(name)
   cardInfo.appendChild(userName)
@@ -99,3 +125,4 @@ function cardCreator(data){
   return card
 
 }
+
