@@ -2,17 +2,17 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+let followers_link;
 const cards = document.querySelector('.cards')
 axios.get('https://api.github.com/users/uziasr')
 //axios.get("https://api.github.com/users/uziasr/followers")
 .then(response=>{
   const my_info = response.data
+  console.log(response)
   cards.appendChild(cardCreator(my_info))
-  console.log(response.data)
-  const followers_link = (response.data.followers_url)
+  followers_link = response.data.followers_url
 })
-//grab the info!!
-//uziasr-->followers-->html_url --> all info
+
 
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -35,8 +35,42 @@ axios.get('https://api.github.com/users/uziasr')
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
+// console.log(followers_link)
+const followersArray = ["ColinJR95","seanaleid","umekow","michaelharms6010","Gavin-Dreyer"];
+followersArray.forEach(element =>{
+  axios.get(`https://api.github.com/users/${element}`)
+  .then(res=>{
+    cards.appendChild(cardCreator(res.data))
+  })
+})
+// axios.get("https://api.github.com/users/uziasr/followers")
+// .then(response=>{
+  
+//   //cards.appendChild(cardCreator(my_info))
+//   // console.log(response.data)
+//   // const followers_link = (response.data.followers_url)
+//   // axios.get(followers_link)
+//   response.data.forEach(element=> {
+//     axios.get(element['html_url'])
+//     .then(res=>{
+//       cards.appendChild(cardCreator(res.data))
+//     }
+//     )
+//   })
+  
+//   //followersArray.push()
+// })
+console.log(followersArray)
 
-const followersArray = [];
+// followersArray.forEach(element=>
+// {console.log(element)
+// axios.get(element)
+// .then(response=>{
+//   Cconsole.log(response)
+//   cards.appendChild(cardCreator(response.data))
+// })})
+console.log(followersArray[0])
+//gra
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -104,6 +138,9 @@ function cardCreator(object){
   gitLink.textContent = object.html_url
   followers.textContent = (`Followers: ${object.followers}`)
   following.textContent = (`Following: ${object.following}`)
+  if(bio.textContent){
+  bio.textContent = (`Bio: ${object.bio}`)
+}
 
 
 
